@@ -1,7 +1,7 @@
 import os
 from setuptools import setup, find_packages
 
-version = '4.3.0b3.dev0'
+version = '4.3.0b3-plone3.dev0'
 
 long_description = (
     open("README.rst").read() + "\n"
@@ -21,12 +21,8 @@ setup(
         "Programming Language :: Python",
         "Environment :: Web Environment",
         "Framework :: Plone",
-        "Framework :: Plone :: 4.0",
-        "Framework :: Plone :: 4.1",
-        "Framework :: Plone :: 4.2",
-        "Framework :: Plone :: 4.3",
-        "Programming Language :: Python :: 2.6",
-        "Programming Language :: Python :: 2.7",
+        "Framework :: Plone :: 3.5",
+        "Programming Language :: Python :: 2.4",
     ],
     keywords='Plone CKeditor WYSIWYG',
     author='Alterway Solutions',
@@ -41,8 +37,8 @@ setup(
         'zope.i18nmessageid',
         'collective.quickupload',
         'collective.plonefinder',
-        'plone.app.uuid',
-        'demjson',
+        'simplejson',
+        'iw.resourcetraverser',
     ],
     packages=find_packages('src'),
     package_dir={'': 'src'},

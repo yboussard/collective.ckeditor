@@ -116,6 +116,7 @@ jQuery(document).ready(launchCKInstances);
     var showActualUrl = function showActualUrl(domElement, url) {
         if (url.indexOf('resolveuid') !== -1) {
             domElement.setHtml(format('Loading...'));
+            
             var current_uid = url.split('resolveuid/')[1];
             var new_url = CKEDITOR_PLONE_PORTALPATH + '/convert_uid_to_url/' + current_uid;
             var settings = {

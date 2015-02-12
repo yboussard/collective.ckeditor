@@ -25,42 +25,135 @@
   </property>
   <property name="filtering" type="string">default</property>
   <property name="customAllowedContent" type="text">
-      /* Add items to array of allowedContent rules */
-      []
+         []
   </property>
   <property name="extraAllowedContent" type="text">
-      /* Add items to array of allowedContent rules */
-      []
+         []
   </property>
   <property name="menuStyles" type="text">
 [
-  /* Block Styles */
-  { name : 'Grey Title'		, element : 'h2', styles : { 'color' : '#888' } },
-  { name : 'Grey Sub Title'		, element : 'h3', styles : { 'color' : '#888' } },
-  { name : 'Discreet bloc'		, element : 'p', attributes : { 'class' : 'discreet' } },
-  /* Inline styles */
-  { name : 'Discreet text'		, element : 'span', attributes : { 'class' : 'discreet' } },
-  { name : 'Marker: Yellow'	, element : 'span', styles : { 'background-color' : 'Yellow' } },
-  { name : 'Typewriter'		, element : 'tt' },
-  { name : 'Computer Code'	, element : 'code' },
-  { name : 'Keyboard Phrase'	, element : 'kbd' },
-  { name : 'Sample Text'		, element : 'samp' },
-  { name : 'Variable'			, element : 'var' },
-  { name : 'Deleted Text'		, element : 'del' },
-  { name : 'Inserted Text'	, element : 'ins' },
-  { name : 'Cited Work'		, element : 'cite' },
-  { name : 'Inline Quotation'	, element : 'q' },
-  { name : 'Language: RTL'	, element : 'span', attributes : { 'dir' : 'rtl' } },
-  { name : 'Language: LTR'	, element : 'span', attributes : { 'dir' : 'ltr' } },
-  /* Objects styles */
-  { name : 'Image on right'	, element : 'img', attributes : { 'class' : 'image-right' } },
-  { name : 'Image on left'	, element : 'img', attributes : { 'class' : 'image-left' } },
-  { name : 'Image centered'	, element : 'img', attributes : { 'class' : 'image-inline' } },
-	{ name : 'Borderless Table', element : 'table', styles: { 'border-style': 'hidden', 'background-color' : '#E6E6FA' } },
-  { name : 'Square Bulleted List', element : 'ul', styles : { 'list-style-type' : 'square' } }
-
-]
-  </property>
+    {
+        "styles": {
+            "color": "#888"
+        },
+        "name": "Grey Title",
+        "element": "h2"
+    },
+    {
+        "styles": {
+            "color": "#888"
+        },
+        "name": "Grey Sub Title",
+        "element": "h3"
+    },
+    {
+        "attributes": {
+            "class": "discreet"
+        },
+        "name": "Discreet bloc",
+        "element": "p"
+    },
+    {
+        "attributes": {
+            "class": "discreet"
+        },
+        "name": "Discreet text",
+        "element": "span"
+    },
+    {
+        "styles": {
+            "background-color": "Yellow"
+        },
+        "name": "Marker: Yellow",
+        "element": "span"
+    },
+    {
+        "name": "Typewriter",
+        "element": "tt"
+    },
+    {
+        "name": "Computer Code",
+        "element": "code"
+    },
+    {
+        "name": "Keyboard Phrase",
+        "element": "kbd"
+    },
+    {
+        "name": "Sample Text",
+        "element": "samp"
+    },
+    {
+        "name": "Variable",
+        "element": "var"
+    },
+    {
+        "name": "Deleted Text",
+        "element": "del"
+    },
+    {
+        "name": "Inserted Text",
+        "element": "ins"
+    },
+    {
+        "name": "Cited Work",
+        "element": "cite"
+    },
+    {
+        "name": "Inline Quotation",
+        "element": "q"
+    },
+    {
+        "attributes": {
+            "dir": "rtl"
+        },
+        "name": "Language: RTL",
+        "element": "span"
+    },
+    {
+        "attributes": {
+            "dir": "ltr"
+        },
+        "name": "Language: LTR",
+        "element": "span"
+    },
+    {
+        "attributes": {
+            "class": "image-right"
+        },
+        "name": "Image on right",
+        "element": "img"
+    },
+    {
+        "attributes": {
+            "class": "image-left"
+        },
+        "name": "Image on left",
+        "element": "img"
+    },
+    {
+        "attributes": {
+            "class": "image-inline"
+        },
+        "name": "Image centered",
+        "element": "img"
+    },
+    {
+        "styles": {
+            "border-style": "hidden",
+            "background-color": "#E6E6FA"
+        },
+        "name": "Borderless Table",
+        "element": "table"
+    },
+    {
+        "styles": {
+            "list-style-type": "square"
+        },
+        "name": "Square Bulleted List",
+        "element": "ul"
+    }
+] </property>
   <property name="plugins" type="lines">
     <element value="ajaxsave;/++resource++cke_ajaxsave/plugin.js"/>
   </property>

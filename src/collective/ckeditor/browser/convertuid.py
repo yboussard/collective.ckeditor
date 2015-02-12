@@ -2,8 +2,8 @@ from zope.interface import implements
 from zope.publisher.interfaces import IPublishTraverse
 from zope.publisher.browser import BrowserView
 
-from plone.outputfilters.browser.resolveuid import uuidToURL
-
+#from plone.outputfilters.browser.resolveuid import uuidToURL
+from collective.ckeditor.utils.uuid import uuidToURL
 
 class ConvertUIDView(BrowserView):
     """Resolve a URL like /convert_uid_to_url/<uuid> to a normalized URL.
@@ -14,6 +14,7 @@ class ConvertUIDView(BrowserView):
 
     def publishTraverse(self, request, name):
         self.uuid = name
+        
         traverse_subpath = self.request['TraversalRequestNameStack']
         if traverse_subpath:
             traverse_subpath = list(traverse_subpath)
@@ -23,4 +24,5 @@ class ConvertUIDView(BrowserView):
         return self
 
     def __call__(self):
+        raise Exception("CALL")
         return uuidToURL(self.uuid)

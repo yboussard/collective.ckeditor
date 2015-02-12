@@ -13,9 +13,13 @@ from collective.ckeditor.config import CKEDITOR_FULL_TOOLBAR
 from collective.ckeditor.config import CKEDITOR_SUPPORTED_LANGUAGE_CODES
 from collective.ckeditor import siteMessageFactory as _
 
-import demjson
-demjson.dumps = demjson.encode
-demjson.loads = demjson.decode
+#import demjson
+#demjson.dumps = demjson.encode
+#demjson.loads = demjson.decode
+
+# Plone 3 - no demjson , we use simplejson instead
+import simplejson as demjson
+
 
 CK_VARS_TEMPLATE = """
 // set the good base path for the editor because
@@ -29,7 +33,17 @@ var CKEDITOR_PLONE_PORTALPATH = '%(portal_url)s';
 """
 
 ABSOLUTE_URL = re.compile("^https?://")
+COMMENT = re.compile('/\*[^*]*\*/')
+TO_BE_QUOTE = re.compile(r'(?P<label>\w+) :')
 
+def quote_json(str):
+    return TO_BE_QUOTE.sub(r"'\g<label>' :", str)
+
+def to_json(str):
+    """ remove all comments in a text """
+    return quote_json(COMMENT.sub('',str))
+
+    
 
 class ICKeditorView(Interface):
     """
@@ -85,17 +99,23 @@ class CKeditorView(BrowserView):
         """
         context = aq_inner(self.context)
         plone_view = context.restrictedTraverse('@@plone')
+
         return "'%s'" % plone_view.renderBase()
 
-    @ property
+    @property
     def ckfinder_basehref(self):
         """
         return CK finder base href
         TODO : improve it with control panel
         (could be a specific place in site)
         """
-        context = aq_inner(self.context)
-        return context.absolute_url()
+        pf = getToolByName(self.context, 'portal_factory')
+        if pf.isTemporary(self.context):
+            return self.context.aq_inner.aq_parent.aq_parent.aq_parent.absolute_url()
+            #import pdb;pdb.set_trace();
+        else:
+            context = aq_inner(self.context)
+            return context.absolute_url()
 
     def _memberUsesCKeditor(self):
         """return True if member uses CKeditor"""
@@ -175,6 +195,7 @@ class CKeditorView(BrowserView):
         """
         return browser url for a type
         """
+        
         base_url = '%s/@@plone_ckfinder?' % self.ckfinder_basehref
         if type == 'file':
             base_url += 'typeview=file&media=file'
@@ -297,15 +318,13 @@ class CKeditorView(BrowserView):
         if filtering == 'default':
             extraAllowedContent = cke_properties.getProperty(
                 'extraAllowedContent')
-            params_js_string += "config.extraAllowedContent = {};".format(
-                extraAllowedContent)
+            params_js_string += "config.extraAllowedContent = %s;" % extraAllowedContent
         elif filtering == 'disabled':
             params_js_string += """config.allowedContent = true;"""
         elif filtering == 'custom':
             customAllowedContent = cke_properties.getProperty(
                 'customAllowedContent')
-            params_js_string += "config.allowedContent = {};".format(
-                customAllowedContent)
+            params_js_string += "config.allowedContent = %s;" % customAllowedContent
 
         # enable SCAYT on startup if necessary
         enableScaytOnStartup = cke_properties.getProperty(
@@ -339,7 +358,7 @@ class CKeditorView(BrowserView):
 
         return JavascriptPacker('safe').pack(params_js_string)
 
-    def getCK_vars(self):
+    def getCK_vars(self, *args):
         return CK_VARS_TEMPLATE % {'portal_url': self.portal_url}
 
     def getCustomTemplatesConfig(self, customTemplates):
@@ -360,6 +379,7 @@ class CKeditorView(BrowserView):
         request = self.request
         response = request.RESPONSE
         cke_properties = self.cke_properties
+        
         styles = demjson.loads(cke_properties.getProperty('menuStyles', '[]'))
         for style in styles:
             if 'name' in style:
